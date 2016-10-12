@@ -21,6 +21,16 @@ Capybara.app_host = "http://localhost:#{Capybara.server_port}"# This file was ge
 # users commonly want.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+def create_user first_name = "Flannery", last_name="O'Connor", email="georgiagal@gmail.com", password="pacman91", password_confirmation="pacman91", city="Georgia", state="GA"
+  User.create(first_name: first_name, last_name: last_name, email: email, city: city, state: state, password: password, password_confirmation: password_confirmation)
+end
+def log_in user, password='pacman91'
+  visit '/'
+  fill_in "Email", with: user.email
+  fill_in "Password", with: password
+  click_button "Log In"
+end
+
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest

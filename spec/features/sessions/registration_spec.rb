@@ -10,4 +10,9 @@ RSpec.describe 'registration' do
   	expect(page).to have_field('Password')
   	expect(page).to have_field('Password Confirmation')
   end
+
+  it 'permits regitration with valid information' do
+  	flan = create_user
+  	expect(flan.first_name).to eq("Flannery")
+  end
 end

@@ -1,5 +1,17 @@
 Rails.application.routes.draw do
+  get 'users/dashboard'
+
+  get 'user/:id' => 'users#edit'
+  get 'sessions/logout'
+
+  get 'users/create'
+
+  get "events" => 'users#dashboard'
+
   root 'sessions#index'
+  post 'users' => 'users#create'
+  post 'sessions/login'
+  put 'user/:id' => 'users#update'
 
   # The priority is based upon order of creation: first created -> highest priority. 
   # See how all your routes lay out with "rake routes".
