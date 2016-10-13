@@ -1,0 +1,46 @@
+<%= render "shared/header" %>
+<div class="container">
+<div class="row">
+	<div class="col s6">
+	<h5>Host: <%= @event.owner_name %></h5>
+	<h5>Name: <%= @event.name %></h5>
+	<h5>Date: <%= @event.nice_date %></h5>
+	<h5>Location: <%= @event.city %>, <%= @event.state %></h5>
+	<h5>People who are joining the event <%= @joiners.length %></h5>
+	<table>
+		<tr>
+			<td>Name</td>
+			<td>City</td>
+			<td>State</td>
+		</tr>
+		<% @joiners.each do |joiner| %>
+		<tr>
+			<td><%= joiner.first_name %>  <%= joiner.last_name %></td>
+			<td><%= joiner.city %></td>
+			<td><%= joiner.state %></td>
+		</tr>
+		<% end %>
+	</table>
+	</div>
+	<div class="col s6">
+		<h5> Discussion about this event: </h5>
+		<div id="commentBox">
+			<% @comments.each do |comment| %>
+			<p> <%= comment.user.first_name %> says: <%= comment.text %> </p>
+			<% end %>
+		</div>
+		<%= flash[:error] %>
+		<form action="/comments" method="post">
+			 <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+			 <input type="hidden" name="comment[user_id]" value=<%= session[:user_id] %>>
+			 <input type="hidden" name="comment[event_id]" value=<%= @event.events_id %>>
+			 <div class="input-field">
+			 	<textarea name="comment[text]" class="materialize-textarea" id="comment"></textarea>
+			 	<label for="comment">Comment</label>
+			 </div>
+			 <button class="btn waves-effect waves-light center-align" type="submit">Add Comment</button>
+		</form>
+
+	</div>
+</div>
+</div>

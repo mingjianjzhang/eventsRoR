@@ -1,0 +1,169 @@
+<%= render "shared/header" %>
+<%= @joined_events.to_json %>
+<div class='container'>
+<h5> Welcome, <%= @user.first_name %> </h5>
+
+<p> Here are some events in your state: </p>
+<% if @localevents %>
+<table>
+	<tr>
+		<th>Name</th>
+		<th>Date</th>
+		<th>Location</th>
+		<th>Host</th>
+		<th>Action/Status</th>
+	</tr>
+<% @localevents.each do |event| %>
+	<tr>
+		<td><a href="/events/<%= event.events_id %>"><%= event.name %></a></td>
+		<td><%= event.nice_date %></td>
+		<td><%= event.city %></td>
+		<td><%= event.owner_name %></td>
+		<td>
+<% if event.owner.id == session[:user_id] %>
+	<a href="/events/<%= event.events_id %>/edit">Edit</a>
+	<a href="/events/<%= event.events_id %>" data-method="delete">Delete</a>
+<% elsif @joined_events.include?(event.events_id) %>
+	<span>Joining</span><a href="/cancel/<%= event.events_id %>">Cancel</a>
+<% else %>
+	<form action="/join" method="post">
+		 <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+		 <input type="hidden" name="eventuser[user_id]" value=<%= session[:user_id] %>>
+		 <input type="hidden" name="eventuser[event_id]" value=<%= event.events_id %>>
+		 <button class="btn waves-effect waves-light center-align" type="submit">Join</button>
+	</form>
+<% end %>			
+		</td>
+	</tr>
+<% end %>
+</table>
+<% else %>
+
+		<p>Sorry, there are no local events at this time. Why don't you make one?</p>
+
+<% end %>
+
+
+
+<p>Here are some events in other states: </p>
+<table>
+	<tr>
+		<th>Name</th>
+		<th>Date</th>
+		<th>Location</th>
+		<th>State</th>
+		<th>Host</th>
+		<th>Action</th>
+	</tr>
+<% @distantevents.each do |event| %>
+	<tr>
+		<td><a href="/events/<%= event.events_id %>"><%= event.name %></a></td>
+		<td><%= event.nice_date %></td>
+		<td><%= event.city %></td>
+		<td><%= event.state %></td>
+		<td><%= event.owner_name %></td>
+		<td>
+<% if @joined_events.include?(event.events_id) %>
+	<span>Joined</span>
+    <form>
+ <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+
+    </form>
+<% elsif event.owner_id == @user.id %>
+	<a href="/events/<%= event.id %>" data-method="delete">Delete</a>
+
+<% else %>
+	<form action="/join" method="post">
+		 <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+		 <input type="hidden" name="eventuser[user_id]" value=<%= session[:user_id] %>>
+		 <input type="hidden" name="eventuser[event_id]" value=<%= event.events_id %>>
+		 <button class="btn waves-effect waves-light center-align" type="submit">Join</button>
+	</form>
+
+<% end %>
+		</td>
+	</tr>
+<% end %>
+</table>
+
+<% if flash[:errors] %>
+<% flash[:errors].each do |error| %>
+<p class="red-text"><%= error %></p>
+<% end %>
+<% end %>
+<form action="/events" method="post">
+
+	<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+	<input type="hidden" name="event[owner_id]" value=<%= session[:user_id] %>>
+	<div class="input-field">
+		<input type="text" name="event[name]" id="name">
+		<label for="name">Name</label>
+	</div>
+	<div class="input-field">
+		<input type="text" name="event[date]" id="date">
+		<label for="date">Date</label>
+	</div>
+	<div class="input-field">
+		<input type="text" name="event[city]" id="city">
+		<label for="city">City</label>
+	</div>
+	<div class="input-field">
+		<select name="event[state]" id="state">
+			<option value="AL">AL</option>
+			<option value="AK">AK</option>
+			<option value="AZ">AZ</option>
+			<option value="AR">AR</option>
+			<option value="CA">CA</option>
+			<option value="CO">CO</option>
+			<option value="CT">CT</option>
+			<option value="DE">DE</option>
+			<option value="DC">DC</option>
+			<option value="FL">FL</option>
+			<option value="GA">GA</option>
+			<option value="HI">HI</option>
+			<option value="ID">ID</option>
+			<option value="IL">IL</option>
+			<option value="IN">IN</option>
+			<option value="IA">IA</option>
+			<option value="KS">KS</option>
+			<option value="KY">KY</option>
+			<option value="LA">LA</option>
+			<option value="ME">ME</option>
+			<option value="MD">MD</option>
+			<option value="MA">MA</option>
+			<option value="MI">MI</option>
+			<option value="MN">MN</option>
+			<option value="MS">MS</option>
+			<option value="MO">MO</option>
+			<option value="MT">MT</option>
+			<option value="NE">NE</option>
+			<option value="NV">NV</option>
+			<option value="NH">NH</option>
+			<option value="NJ">NJ</option>
+			<option value="NM">NM</option>
+			<option value="NY">NY</option>
+			<option value="NC">NC</option>
+			<option value="ND">ND</option>
+			<option value="OH">OH</option>
+			<option value="OK">OK</option>
+			<option value="OR">OR</option>
+			<option value="PA">PA</option>
+			<option value="RI">RI</option>
+			<option value="SC">SC</option>
+			<option value="SD">SD</option>
+			<option value="TN">TN</option>
+			<option value="TX">TX</option>
+			<option value="UT">UT</option>
+			<option value="VT">VT</option>
+			<option value="VA">VA</option>
+			<option value="WA">WA</option>
+			<option value="WV">WV</option>
+			<option value="WI">WI</option>
+			<option value="WY">WY</option>
+		</select>
+	</div>
+	<button class="btn waves-effect waves-light center-align" type="submit">Create Event</button>
+</form>
+
+
+</div>

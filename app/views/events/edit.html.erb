@@ -1,0 +1,83 @@
+<%= render 'shared/header' %>
+<div class="container">
+<p class="green-text"><%= flash[:success] %></p>
+<% if flash[:errors] %>
+<% flash[:errors].each do |error| %>
+<p class="red-text"><%= error %></p>
+<% end %>
+<% end %>
+	<form action="/events/<%= @event.id %>" method="post">
+		 <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+		 <input type="hidden" name="_method" value="put">
+		 <div class="input-field">
+		 	<input type="text" name="event[name]" id="name" value=<%= @event.name %>>
+		 	<label for="name">Name</label>
+		 </div>
+		 <div class="input-field">
+		 	<input type="text" name="event[date]" id="date" value=<%= @event.date %>>
+		 	<label for="date">Date</label>
+		 </div>
+		 <div class="input-field">
+		 	<input type="text" name="event[city]" id="city" value=<%= @event.city %>>
+		 	<label for="city">City</label>
+		 </div>
+		 <div class="input-field">
+		 	<select name="event[state]" id="state">
+				<option value="AL"  <%= "selected" if @event.state == "AL" %>>AL</option>
+				<option value="AK"  <%= "selected" if @event.state == "AK" %>>AK</option>
+				<option value="AZ"  <%= "selected" if @event.state == "AZ" %>>AZ</option>
+				<option value="AR"  <%= "selected" if @event.state == "AR" %>>AR</option>
+				<option value="CA"  <%= "selected" if @event.state == "CA" %>>CA</option>
+				<option value="CO"  <%= "selected" if @event.state == "CO" %>>CO</option>
+				<option value="CT"  <%= "selected" if @event.state == "CT" %>>CT</option>
+				<option value="DE"  <%= "selected" if @event.state == "DE" %>>DE</option>
+				<option value="DC"  <%= "selected" if @event.state == "DC" %>>DC</option>
+				<option value="FL"  <%= "selected" if @event.state == "FL" %>>FL</option>
+				<option value="GA"  <%= "selected" if @event.state == "GA" %>>GA</option>
+				<option value="HI"  <%= "selected" if @event.state == "HI" %>>HI</option>
+				<option value="ID"  <%= "selected" if @event.state == "ID" %>>ID</option>
+				<option value="IL"  <%= "selected" if @event.state == "IL" %>>IL</option>
+				<option value="IN"  <%= "selected" if @event.state == "IN" %>>IN</option>
+				<option value="IA"  <%= "selected" if @event.state == "IA" %>>IA</option>
+				<option value="KS"  <%= "selected" if @event.state == "KS" %>>KS</option>
+				<option value="KY"  <%= "selected" if @event.state == "KY" %>>KY</option>
+				<option value="LA"  <%= "selected" if @event.state == "LA" %>>LA</option>
+				<option value="ME"  <%= "selected" if @event.state == "ME" %>>ME</option>
+				<option value="MD"  <%= "selected" if @event.state == "MD" %>>MD</option>
+				<option value="MA"  <%= "selected" if @event.state == "MA" %>>MA</option>
+				<option value="MI"  <%= "selected" if @event.state == "MI" %>>MI</option>
+				<option value="MN"  <%= "selected" if @event.state == "MN" %>>MN</option>
+				<option value="MS"  <%= "selected" if @event.state == "MS" %>>MS</option>
+				<option value="MO"  <%= "selected" if @event.state == "MO" %>>MO</option>
+				<option value="MT"  <%= "selected" if @event.state == "MT" %>>MT</option>
+				<option value="NE"  <%= "selected" if @event.state == "NE" %>>NE</option>
+				<option value="NV"  <%= "selected" if @event.state == "NV" %>>NV</option>
+				<option value="NH"  <%= "selected" if @event.state == "NH" %>>NH</option>
+				<option value="NJ"  <%= "selected" if @event.state == "NJ" %>>NJ</option>
+				<option value="NM"  <%= "selected" if @event.state == "NM" %>>NM</option>
+				<option value="NY"  <%= "selected" if @event.state == "NY" %>>NY</option>
+				<option value="NC"  <%= "selected" if @event.state == "NC" %>>NC</option>
+				<option value="ND"  <%= "selected" if @event.state == "ND" %>>ND</option>
+				<option value="OH"  <%= "selected" if @event.state == "OH" %>>OH</option>
+				<option value="OK"  <%= "selected" if @event.state == "OK" %>>OK</option>
+				<option value="OR"  <%= "selected" if @event.state == "OR" %>>OR</option>
+				<option value="PA"  <%= "selected" if @event.state == "PA" %>>PA</option>
+				<option value="RI"  <%= "selected" if @event.state == "RI" %>>RI</option>
+				<option value="SC"  <%= "selected" if @event.state == "SC" %>>SC</option>
+				<option value="SD"  <%= "selected" if @event.state == "SD" %>>SD</option>
+				<option value="TN"  <%= "selected" if @event.state == "TN" %>>TN</option>
+				<option value="TX"  <%= "selected" if @event.state == "TX" %>>TX</option>
+				<option value="UT"  <%= "selected" if @event.state == "UT" %>>UT</option>
+				<option value="VT"  <%= "selected" if @event.state == "VT" %>>VT</option>
+				<option value="VA"  <%= "selected" if @event.state == "VA" %>>VA</option>
+				<option value="WA"  <%= "selected" if @event.state == "WA" %>>WA</option>
+				<option value="WV"  <%= "selected" if @event.state == "WV" %>>WV</option>
+				<option value="WI"  <%= "selected" if @event.state == "WI" %>>WI</option>
+				<option value="WY"  <%= "selected" if @event.state == "WY" %>>WY</option>
+			</select>	
+
+		 </div>
+		 <button class="btn waves-effect waves-light center-align" type="submit">Update</button>
+
+
+</div>

@@ -11,7 +11,8 @@ class UsersController < ApplicationController
   	params.permit!
   	user = User.new(params[:user])
   	if user.save 
-  	  session[:user_id] = user.id 
+  	  session[:user_id] = user.id
+      session[:state] = user.state 
   	  redirect_to "/events"
   	else
   	  flash[:errors] = user.errors.full_messages

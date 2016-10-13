@@ -8,6 +8,7 @@ class SessionsController < ApplicationController
   	if user
   	  if user.authenticate(params[:password])
   	  	session[:user_id] = user.id
+        session[:state] = user.state
   	  	redirect_to "/events"
   	  else
   	    flash[:bad_password] = "Invalid password"
